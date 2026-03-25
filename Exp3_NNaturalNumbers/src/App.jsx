@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import InputForm from './InputForm';
 import NumberList from './NumberList';
+import './index.css';
 
 function App() {
   const [num, setNum] = useState('');
-
-  // Handle derived state: generating the array of natural numbers
   const count = Number(num);
-  const numbers = (!isNaN(count) && count > 0) 
-    ? Array.from({ length: count }, (_, i) => i + 1)
-    : [];
+  const numbers = (!isNaN(count) && count > 0) ? Array.from({ length: count }, (_, i) => i + 1) : [];
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px', fontFamily: 'sans-serif' }}>
-      <h2 style={{ color: '#333' }}>Print N Natural Numbers</h2>
-      
-      {/* Passing state and event handler via props */}
-      <InputForm n={num} onInputChange={setNum} />
-      
-      {/* Passing generated numbers via props for conditional rendering */}
-      <NumberList numbers={numbers} />
+    <div className="app-container">
+      <div className="header">
+        <h2>Natural Numbers Generator</h2>
+        <p>Interactive sequential number visualization</p>
+      </div>
+      <div className="card">
+        <InputForm onInputChange={setNum} />
+        {num !== '' && <NumberList numbers={numbers} />}
+      </div>
     </div>
   );
 }
-
 export default App;

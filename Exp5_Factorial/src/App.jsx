@@ -2,24 +2,21 @@ import React, { useState } from 'react';
 import InputForm from './InputForm';
 import Result from './Result';
 import { calculateFactorial } from './utils/factorial';
+import './index.css';
 
 function App() {
   const [resultData, setResultData] = useState(null);
-
-  const handleCalculate = (numStr) => {
-    const result = calculateFactorial(numStr);
-    setResultData(result);
-  };
-
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px', fontFamily: 'sans-serif' }}>
-      <h2>Factorial Calculator</h2>
-      
-      <InputForm onCalculate={handleCalculate} />
-      
-      <Result resultData={resultData} />
+    <div className="app-container">
+      <div className="header">
+        <h2>Factorial Engine</h2>
+        <p>Lightning-fast mathematical computations</p>
+      </div>
+      <div className="card">
+        <InputForm onCalculate={(num) => setResultData(calculateFactorial(num))} />
+        <Result resultData={resultData} />
+      </div>
     </div>
   );
 }
-
 export default App;

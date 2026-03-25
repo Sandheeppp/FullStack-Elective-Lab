@@ -2,26 +2,21 @@ import React, { useState } from 'react';
 import InputGroup from './InputGroup';
 import Result from './Result';
 import { findGreatest } from './utils/greatest';
+import './index.css';
 
 function App() {
   const [resultData, setResultData] = useState(null);
-
-  const handleCompare = (num1, num2, num3) => {
-    const result = findGreatest(num1, num2, num3);
-    setResultData(result);
-  };
-
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px', fontFamily: 'sans-serif' }}>
-      <h2>Greatest of Three Numbers</h2>
-      
-      {/* Accepts inputs and emits them back */}
-      <InputGroup onCompare={handleCompare} />
-      
-      {/* Conditionally renders the result message */}
-      <Result resultData={resultData} />
+    <div className="app-container">
+      <div className="header">
+        <h2>Greatest Finder</h2>
+        <p>Input three numbers and instantly find the maximum</p>
+      </div>
+      <div className="card">
+        <InputGroup onCompare={(n1, n2, n3) => setResultData(findGreatest(n1, n2, n3))} />
+        <Result resultData={resultData} />
+      </div>
     </div>
   );
 }
-
 export default App;

@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function InputForm({ n, onInputChange }) {
-  const handleChange = (e) => {
-    onInputChange(e.target.value);
+function InputForm({ onInputChange }) {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onInputChange(inputValue);
   };
 
   return (
-    <div style={{ margin: '20px 0' }}>
-      <label style={{ marginRight: '10px', fontSize: '18px' }}>
-        Enter N:
-      </label>
+    <form className="form-group" onSubmit={handleSubmit}>
       <input 
         type="number" 
-        value={n} 
-        onChange={handleChange} 
-        placeholder="Enter a positive number"
-        style={{ padding: '8px', fontSize: '16px', borderRadius: '4px', border: '1px solid #ccc' }}
+        className="input-field"
+        value={inputValue} 
+        onChange={(e) => setInputValue(e.target.value)} 
+        placeholder="Enter N..."
       />
-    </div>
+      <button type="submit" className="btn-primary">Generate</button>
+    </form>
   );
 }
-
 export default InputForm;

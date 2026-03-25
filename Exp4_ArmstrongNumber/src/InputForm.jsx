@@ -9,19 +9,16 @@ function InputForm({ onCheck }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ margin: '20px 0' }}>
+    <form className="form-group" onSubmit={handleSubmit}>
       <input 
         type="number" 
+        className="input-field"
         value={inputValue} 
         onChange={(e) => setInputValue(e.target.value)} 
-        placeholder="Enter a number"
-        style={{ padding: '8px', fontSize: '16px', marginRight: '10px' }}
+        placeholder="Enter a number..."
       />
-      <button type="submit" style={{ padding: '8px 15px', fontSize: '16px', cursor: 'pointer', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px' }}>
-        Check
-      </button>
+      <button type="submit" className="btn-primary">Verify Armstrong</button>
     </form>
   );
 }
-
 export default InputForm;

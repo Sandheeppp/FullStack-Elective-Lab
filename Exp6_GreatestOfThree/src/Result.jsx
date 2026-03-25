@@ -2,22 +2,13 @@ import React from 'react';
 
 function Result({ resultData }) {
   if (!resultData) return null;
-
-  if (!resultData.isValid) {
-    return (
-      <div style={{ marginTop: '20px' }}>
-        <h3 style={{ color: '#ff4757' }}>{resultData.message}</h3>
-      </div>
-    );
-  }
-
+  if (!resultData.isValid) return <div className="result-box"><h3 className="result-error">{resultData.message}</h3></div>;
   return (
-    <div style={{ marginTop: '20px' }}>
-      <h3 style={{ color: '#2ed573' }}>
-        The greatest number is: {resultData.result}
+    <div className="result-box">
+      <h3 className="result-success">
+        The Greatest Number is: <br/><span style={{fontSize:'36px', color:'#000', display:'block', marginTop:'10px'}}>{resultData.result}</span>
       </h3>
     </div>
   );
 }
-
 export default Result;
