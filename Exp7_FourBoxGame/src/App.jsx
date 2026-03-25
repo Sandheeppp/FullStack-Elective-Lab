@@ -2,36 +2,65 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [boxes, setBoxes] = useState([
-    { id: 1, color: '#ff4757', active: false },
-    { id: 2, color: '#2ed573', active: false },
-    { id: 3, color: '#1e90ff', active: false },
-    { id: 4, color: '#ffa502', active: false }
-  ]);
+  const [initialValue, setInitialValue] = useState('');
+  const [balls, setBalls] = useState([0, 0, 0, 0]);
 
-  const toggleBox = (id) => {
-    setBoxes(boxes.map(box => 
-      box.id === id ? { ...box, active: !box.active } : box
-    ));
+  const boxesInfo = [
+    { label: 'A', color: 'violet' },
+    { label: 'B', color: 'orange' },
+    { label: 'C', color: 'green' },
+    { label: 'D', color: 'white' }
+  ];
+
+  const handleSetInitial = () => {
+    const n = Number(initialValue);
+    if (!isNaN(n) && n > 0) {
+      setBalls([n, n * 2, n * 4, n * 8]);
+    }
+  };
+
+  const choice1 = () => {
+    setBalls(balls.map(b => b * 2));
+  };
+
+  const choice2 = () => {
+    const sumABC = balls[0] + balls[1] + balls[2];
+    setBalls([0, 0, 0, balls[3] + sumABC]);
+  };
+
+  const choice3 = () => {
+    setBalls([0, balls[1] + balls[0], 0, balls[3] + balls[2]]);
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px', fontFamily: 'sans-serif' }}>
-      <h2>Four-Box Interaction Game</h2>
-      <p>Click a box to securely toggle its state!</p>
+    <div className="game-wrapper">
+      <h2>Four Box Game</h2>
       
+      <div className="controls">
+        <input 
+          type="number" 
+          value={initialValue} 
+          onChange={(e) => setInitialValue(e.target.value)} 
+          placeholder="Enter Initial Value N" 
+        />
+        <button onClick={handleSetInitial}>Set Initial Balls</button>
+      </div>
+
+      <div className="choices">
+        <button onClick={choice1}>Choice 1</button>
+        <button onClick={choice2}>Choice 2</button>
+        <button onClick={choice3}>Choice 3</button>
+      </div>
+
       <div className="box-container">
-        {boxes.map(box => (
+        {balls.map((count, index) => (
           <div 
-            key={box.id} 
-            className="box"
-            style={{ 
-              backgroundColor: box.active ? '#2f3542' : box.color,
-              opacity: box.active ? 0.8 : 1
-            }}
-            onClick={() => toggleBox(box.id)}
+            key={index} 
+            className="box" 
+            style={{ backgroundColor: boxesInfo[index].color, color: index === 3 ? 'black' : 'white' }}
           >
-            {box.active ? 'Clicked!' : `Box ${box.id}`}
+            <h3>Box {boxesInfo[index].label}</h3>
+            <p>{count} balls</p>
           </div>
         ))}
       </div>
